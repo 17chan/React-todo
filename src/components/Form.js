@@ -4,14 +4,14 @@ import React, { useState } from "react";
 
 
 function Form(props) {
+    const [name, setName] = useState('');  //state作ってる
     function handleChange(e) {
-        setName(e.target.value);
+        setName(e.target.value);  //ここで入力欄の値を取ってきてnameに入れてる
     }
-    const [name, setName] = useState('');
     function handleSubmit(e) {
-        e.preventDefault();
-        props.addTask(name);
-        setName("");
+        e.preventDefault();  //★わからん
+        props.addTask(name);  //setNameでnameに保存してるやつをaddTaskの引数nameに渡す→App.jsへ
+        setName("");  //送信後は最初の空欄に戻す
     }
     return (
         <form onSubmit={handleSubmit}>

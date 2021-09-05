@@ -9,7 +9,10 @@ function Form(props) {
         setName(e.target.value);  //ここで入力欄の値を取ってきてnameに入れてる
     }
     function handleSubmit(e) {
-        e.preventDefault();  //★わからん
+        // event(e)とは...そもそもその時のinputタグの状態や情報が全て詰まっているって感じ
+        // preventDefaultとは...元々ブラウザでスペース押すと多分下に遷移するけどそういうやつを消せる
+
+        e.preventDefault();  //お前(Formタグ)送信するときにenter押されても画面スクロールすなよ！てこと
         props.addTask(name);  //setNameでnameに保存してるやつをaddTaskの引数nameに渡す→App.jsへ
         setName("");  //送信後は最初の空欄に戻す
     }

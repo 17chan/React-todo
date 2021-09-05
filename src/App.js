@@ -23,7 +23,7 @@ function App(props) {
       }
       return task;
     });
-
+    
     setTasks(updatedTasks);
   }
   function deleteTask(id) {

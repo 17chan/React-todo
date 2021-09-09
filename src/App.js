@@ -24,7 +24,6 @@ function App(props) {　// propsにはindex.jsからもらった tasks={DATA} �
       }
       return task;
     });
-
     setTasks(updatedTasks);
   }
 
@@ -38,16 +37,21 @@ function App(props) {　// propsにはindex.jsからもらった tasks={DATA} �
     setTasks(remainingTasks);  //tasksのstateをセットし直してる
 
   }
-  const taskList = tasks.map(task => ( //  tasksの中身を一つずつ取ってきてtaskに入れ、Todo.jsのprops渡す
-    <Todo
-        id={task.id}
-        name={task.name}
-        completed={task.completed}
-        key={task.id}
-        toggleTaskCompleted={toggleTaskCompleted}
-        deleteTask={deleteTask}
-      />
-    )
+  const taskList = tasks.map(task =>  //  tasksの中身を一つずつ取ってきてtaskに入れ、Todo.jsのprops渡す
+    {
+      if (task.completed == false){
+        return (
+          <Todo
+              id={task.id}
+              name={task.name}
+              completed={task.completed}
+              key={task.id}
+              toggleTaskCompleted={toggleTaskCompleted}
+              deleteTask={deleteTask}
+          />
+        )
+      }
+    }
   );
 
   // const headingText = `${taskList.length} tasks remaining`;

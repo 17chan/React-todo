@@ -10,10 +10,10 @@ function Form(props) {
     }
     function handleSubmit(e) {
         // event(e)とは...そもそもその時のinputタグの状態や情報が全て詰まっているって感じ
-        // preventDefaultとは...元々ブラウザでスペース押すと多分下に遷移するけどそういうやつを消せる
+        // preventDefaultとは...元々ブラウザでスペース押すと多分下に遷移するなどのデフォルトの動作を消せる
 
         e.preventDefault();  //お前(Formタグ)送信するときにenter押されても画面スクロールすなよ！てこと
-        props.addTask(name);  //setNameでnameに保存してるやつをaddTaskの引数nameに渡す→App.jsへ
+        props.addTask(name);  //App.js(51行目付近)からaddtaskをpropsにもらう→setNameでnameに保存してるやつをaddTaskの引数nameに渡す→App.jsの<Form />のとこへ
         setName("");  //送信後は最初の空欄に戻す
     }
     return (

@@ -66,6 +66,8 @@ function App(props) {　// propsにはindex.jsからもらった tasks={DATA} �
 
 
   const taskList = tasks.filter(FILTER_MAP[filter]).map(task => (
+    //FILTER_MAP[filter]は連想配列の[キー]で指定してるやつ
+    //.filter(これに当てはまるやつ)を取ってくる
     <Todo
       id={task.id}
       name={task.name}

@@ -1,16 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
-function usePrevious(value) { //引数にはisEditingが渡されてる(true or false)
 
-  const ref = useRef(); // refには{ current: ... }というオブジェクトが与えられる
-  useEffect(() => {　
-    ref.current = value;
-  });
-  console.log(value);　//最初false → [edit]一回押すとtrue
-  console.log(ref.current);  //最初undefined → [edit]一回押すとfalse
-  
-  return ref.current; //true or falseが返される
-}
+
 
 export default function Todo(props) {
 
@@ -22,6 +13,19 @@ export default function Todo(props) {
   
   const wasEditing = usePrevious(isEditing);　//true or false
 
+  function usePrevious(value) { //引数にはisEditingが渡されてる(true or false)
+    const ref = useRef(); 
+  
+    //useEffectはレンダリングされて時に実行されるよ！
+    useEffect(() => {
+      ref.current = value;
+    });
+  
+    return ref.current; //true or falseが返される(最初はundefinedが返される)
+  }
+  
+
+
   function handleChange(e) {
     setNewName(e.target.value);
   }
@@ -31,6 +35,7 @@ export default function Todo(props) {
     setNewName("");
     setEditing(false);
   }
+  
 
   const editingTemplate = (
     <form className="stack-small" onSubmit={handleSubmit}>
@@ -91,9 +96,11 @@ export default function Todo(props) {
 
   useEffect(() => {
     if (!wasEditing && isEditing) {
+      // console.log("editing: " + wasEditing);
       editFieldRef.current.focus();
     }
     if (wasEditing && !isEditing) {
+      // console.log("editing: " + wasEditing);
       editButtonRef.current.focus();
     }
   }, [wasEditing, isEditing]);　//wasEditing, isEditingが変わった(再レンダリング)時にuseEffectが実行される

@@ -1,23 +1,27 @@
 import React, { useEffect, useRef, useState } from "react";
 
-function usePrevious(value) {
-  const ref = useRef();
-  useEffect(() => {
+function usePrevious(value) { //引数にはisEditingが渡されてる(true or false)
+
+  const ref = useRef(); // refには{ current: ... }というオブジェクトが与えられる
+  useEffect(() => {　
     ref.current = value;
   });
-  return ref.current;
+  console.log(value);　//最初false → [edit]一回押すとtrue
+  console.log(ref.current);  //最初undefined → [edit]一回押すとfalse
+  
+  return ref.current; //true or falseが返される
 }
 
 export default function Todo(props) {
 
-  const editFieldRef = useRef(null);
-  const editButtonRef = useRef(null);
+  const editFieldRef = useRef(null);　//初期値を設定して定義する
+  const editButtonRef = useRef(null);　//初期値を設定して定義する
   
   const [isEditing, setEditing] = useState(false);
   const [newName, setNewName] = useState('');
   
-  const wasEditing = usePrevious(isEditing);
-  
+  const wasEditing = usePrevious(isEditing);　//true or false
+
   function handleChange(e) {
     setNewName(e.target.value);
   }
@@ -40,7 +44,7 @@ export default function Todo(props) {
           type="text"
           value={newName}
           onChange={handleChange}
-          ref={editFieldRef}
+          ref={editFieldRef}　//ここにref属性を使って設定する
         />
       </div>
       <div className="btn-group">
@@ -69,7 +73,9 @@ export default function Todo(props) {
           </label>
         </div>
         <div className="btn-group">
-          <button type="button" className="btn" onClick={() => setEditing(true)} ref={editButtonRef}>
+          <button type="button" className="btn" onClick={() => setEditing(true)} 
+          ref={editButtonRef} //ここにref属性を使って設定する
+          >
             Edit <span className="visually-hidden">{props.name}</span>
           </button>
           <button
@@ -90,7 +96,9 @@ export default function Todo(props) {
     if (wasEditing && !isEditing) {
       editButtonRef.current.focus();
     }
-  }, [wasEditing, isEditing]);
+  }, [wasEditing, isEditing]);　//wasEditing, isEditingが変わった(再レンダリング)時にuseEffectが実行される
+
+
   return <li className="todo">{isEditing ? editingTemplate : viewTemplate}</li>;
     // <li className="todo stack-small">
     //   <div className="c-cb">

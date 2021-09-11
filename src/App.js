@@ -108,7 +108,7 @@ function App(props) {　// propsにはindex.jsからもらった tasks={DATA} �
     if (tasks.length - prevTaskLength === -1) {
       listHeadingRef.current.focus();
     }
-  }, [tasks.length, prevTaskLength]);
+  }, [tasks.length, prevTaskLength]); //prevTaskLengthがなくても動くのでは？なんで？
   
 
   return (
